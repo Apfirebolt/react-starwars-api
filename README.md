@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# React Starwars - A Star Wars database application created in React using Star wars API ⚡️
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Briefing
 
-## Available Scripts
+This is an web application created using React which integrates with open API for Star Wars to display information from Star Wars franchise in various categories. 
 
-In the project directory, you can run:
+Made with ❤️ by **[@apfirebolt](https://github.com/Apfirebolt/)**
+## Features/Requirements
 
-### `npm start`
+- Would be updated as the progress is made.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Built With
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* [React](https://reactjs.org/)
+* [React Query](https://react-query.tanstack.com/)
+* [Spectre CSS Framework](https://picturepan2.github.io/spectre/)
 
-### `npm test`
+## Project setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Simply install node modules for frontend and run conventional commands to see it in development mode on your local system. For production 
+environment use 'Docker'.
 
-### `npm run build`
+```
+npm install
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Production Deployment
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Docker containers are used for deploying this.
+- You can own a virtual server or configure your ECS AWS instances with Docker to deploy this.
+- React production build would be served through Nginx, everything would be through Docker containers.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Future Requirements
 
-### `npm run eject`
+- All future requirements would be listed here.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Updates
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- More pages to fetch more types of data from the Star Wars API might be available in future, would be notified here.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Project Screenshots
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+No screenshots added as of now, but would be added as progress is made with this application.
