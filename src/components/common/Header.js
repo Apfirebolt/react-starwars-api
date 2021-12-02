@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 const HeaderComponent = () => {
   return (
     <nav>
+      <p>
+          Star Wars API
+      </p>  
       <ul>
         <li>
           <Link to="/">Home</Link>
