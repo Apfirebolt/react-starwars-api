@@ -1,7 +1,15 @@
 import React from "react";
+import { useQuery } from "react-query";
+import axiosInstance from "../plugins/interceptor";
 
-const VehiclePage = () => {
-  return <h1>Vehicle Page</h1>;
+const getVehicles = async () => {
+  const vehicles = await axiosInstance.get("vehicles");
+  console.log(vehicles);
 };
 
-export default VehiclePage;
+const VehiclesPage = () => {
+  const { isLoading, error, data } = useQuery("vehicles", getVehicles);
+  return <h1>Vehicles Page {isLoading}</h1>;
+};
+
+export default VehiclesPage;

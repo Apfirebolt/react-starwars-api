@@ -14,14 +14,14 @@ const App = () => {
   return (
     <Router>
       <Header />
-      <Routes>
-        <Route path="/" element={<HomePage/>} exact />
-        <Route path="/people" element={<PeoplePage/>} />
-        <Route path="/vehicles" element={<VehiclePage/>} />
-        <Route path="/ships" element={<StarShipPage/>} />
-        <Route path="/planets" element={<PlanetsPage/>} />
-        <Route path="/films" element={<FilmsPage/>} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<HomePage/>} exact />
+          <Route path="/people" element={<PeoplePage/>} />
+          <Route path="/vehicles" element={<VehiclePage/>} />
+          <Route path="/ships" element={<StarShipPage/>} />
+          <Route path="/planets" element={<PlanetsPage/>} />
+          <Route path="/films" element={<FilmsPage/>} />
+        </Routes>
       <Footer />
     </Router>
   );
