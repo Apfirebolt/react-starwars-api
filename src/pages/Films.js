@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useQuery } from "react-query";
 import axiosInstance from "../plugins/interceptor";
+import LoaderComponent from '../components/common/Loader';
+import ErrorComponent from '../components/common/Error';
 
 const getFilms = async () => {
   const films = await axiosInstance.get("films");
@@ -9,7 +11,16 @@ const getFilms = async () => {
 
 const FilmsPage = () => {
   const { isLoading, error, data } = useQuery("films", getFilms);
-  return <h1>Films Page</h1>;
+  return (
+      <Fragment>
+          {isLoading ? <LoaderComponent />
+            : (
+                <p>Films component loaded</p>
+            )
+          }
+          {error && <ErrorComponent />}
+      </Fragment>
+  );
 };
 
 export default FilmsPage;

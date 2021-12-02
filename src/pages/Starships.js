@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useQuery } from "react-query";
 import axiosInstance from "../plugins/interceptor";
+import LoaderComponent from '../components/common/Loader';
+import ErrorComponent from '../components/common/Error';
 
 const getStarShips = async () => {
   const starships = await axiosInstance.get("starships");
@@ -9,7 +11,16 @@ const getStarShips = async () => {
 
 const StarShipsPage = () => {
   const { isLoading, error, data } = useQuery("starships", getStarShips);
-  return <h1>Planets Page {isLoading}</h1>;
+  return (
+    <Fragment>
+        {isLoading ? <LoaderComponent />
+            : (
+                <p>Starships component loaded</p>
+            )
+        }
+        {error && <ErrorComponent />}
+    </Fragment>
+);
 };
 
 export default StarShipsPage;

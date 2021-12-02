@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useQuery } from "react-query";
 import axiosInstance from "../plugins/interceptor";
+import LoaderComponent from '../components/common/Loader';
+import ErrorComponent from '../components/common/Error';
 
 const getPeople = async () => {
   const people = await axiosInstance.get("people");
@@ -9,7 +11,16 @@ const getPeople = async () => {
 
 const PeoplePage = () => {
   const { isLoading, error, data } = useQuery("people", getPeople);
-  return <h1>People Page</h1>;
+  return (
+      <Fragment>
+          {isLoading ? <LoaderComponent />
+            : (
+                <p>People component loaded</p>
+            )
+          }
+          {error && <ErrorComponent />}
+      </Fragment>
+  );
 };
 
 export default PeoplePage;
