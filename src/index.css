@@ -33,3 +33,74 @@ code {
   justify-content: center;
   align-items: center;
 }
+
+nav {
+  display: flex !important;
+  justify-content: space-around;
+}
+
+nav .brand {
+  width: 20%;
+  margin: auto;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style-type: none;
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+nav ul li {
+  margin: 0.25rem;
+  background-color: chocolate;
+  border-radius: 5px;
+  padding: 0.5rem 0.25rem;
+  text-align: center;
+  min-width: 80px;
+}
+
+nav ul li a {
+  color: white !important;
+}
+
+li a:hover {
+  text-decoration: none;
+}
+
+footer {
+  margin: 1rem auto;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+h4 {
+  background-color: white;
+  padding: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.loader img {
+  margin: 1rem;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.error p {
+  margin: 0;
+}
