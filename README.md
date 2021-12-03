@@ -4,10 +4,15 @@
 
 This is an web application created using React which integrates with open API for Star Wars to display information from Star Wars franchise in various categories. 
 
+For more information please visit the API website and the docs [here](https://swapi.dev/)
+
 Made with ❤️ by **[@apfirebolt](https://github.com/Apfirebolt/)**
 ## Features/Requirements
 
-- Would be updated as the progress is made.
+- The app aims at displaying data from the Star Wars API in an attractive looking UI.
+- The API has data from various categories like Planets, People, Ships and Vehicles.
+- Each category would have a separate page.
+- Pagination and API caching is enabled through the use of 'react-query' library.
 
 ## Built With
 
@@ -33,7 +38,8 @@ npm start
 
 ## Future Requirements
 
-- All future requirements would be listed here.
+- Might as well have detail sections for each character, vehicle and more from the API.
+- Search filtering might be added.
 
 ## Updates
 
@@ -41,4 +47,14 @@ npm start
 
 ## Project Screenshots
 
-No screenshots added as of now, but would be added as progress is made with this application.
+Some of the screenshots for this application are listed below. For instance this one displays information about planets from the Star Wars franchise.
+
+![alt text](./screenshots/planets.png)
+
+Star ships information
+
+![alt text](./screenshots/star_ships.png)
+
+Data from the vehicles API end-point.
+
+![alt text](./screenshots/vehicles.png)
