@@ -36,6 +36,20 @@ npm start
 - You can own a virtual server or configure your ECS AWS instances with Docker to deploy this.
 - React production build would be served through Nginx, everything would be through Docker containers.
 
+```
+sudo docker build -t react-starwars .
+sudo docker run -d --name evil_react -p 80:80 react-starwars
+```
+
+1. First step is to create a Docker image from the Docker file within this repo, optionally you can tag it with a name otherwise some random fancy name would be assigned to it.
+
+2. Once you have the image, you can spawn a container using the second command and then check on localhost port 80 to see the running container.
+
+
+
+
+
+
 ## Future Requirements
 
 - Might as well have detail sections for each character, vehicle and more from the API.
