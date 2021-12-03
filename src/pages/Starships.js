@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from "react";
 import { useQuery } from "react-query";
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from "../plugins/interceptor";
 import LoaderComponent from "../components/common/Loader";
 import ErrorComponent from "../components/common/Error";
 
 const StarShipsPage = () => {
   const [page, setPage] = useState(1);
-
+  const navigate = useNavigate();
   const getStarShips = async () => {
     const starships = await axiosInstance.get(`starships/?page=${page}`);
     return starships.data;
@@ -17,6 +18,13 @@ const StarShipsPage = () => {
     () => getStarShips(page),
     { keepPreviousData: true }
   );
+
+  const goToDetailPage = (url) => {
+    console.log('Url is ', url);
+    const shipId = url.match('(?!x)[0-9]+');
+    navigate('/ships/' + shipId);
+  };
+
   return (
     <Fragment>
       {isLoading ? (
@@ -33,6 +41,7 @@ const StarShipsPage = () => {
                 <th>Manufacturer</th>
                 <th>Max Speed</th>
                 <th>Passengers</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -46,6 +55,9 @@ const StarShipsPage = () => {
                       <td>{item.manufacturer}</td>
                       <td>{item.max_atmosphering_speed}</td>
                       <td>{item.passengers}</td>
+                      <td>
+                        <button className="btn btn-success" onClick={() => goToDetailPage(item.url)}>Details</button>
+                      </td>
                     </tr>
                   );
                 })}

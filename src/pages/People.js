@@ -1,13 +1,13 @@
 import React, { Fragment, useState } from "react";
 import { useQuery } from "react-query";
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from "../plugins/interceptor";
 import LoaderComponent from "../components/common/Loader";
 import ErrorComponent from "../components/common/Error";
-// import PaginatorComponent from "../components/common/Pagination";
 
 const PeoplePage = (key) => {
   const [page, setPage] = useState(1);
-
+  const navigate = useNavigate();
   const getPeople = async (key) => {
     const people = await axiosInstance.get(`people/?page=${page}`);
     return people.data;
@@ -18,6 +18,12 @@ const PeoplePage = (key) => {
     () => getPeople(page),
     { keepPreviousData: true }
   );
+
+  const goToDetailPage = (url) => {
+    const personId = url.match('(?!x)[0-9]+');
+    navigate('/people/' + personId);
+  };
+
   return (
     <Fragment>
       {isLoading ? (
@@ -33,7 +39,7 @@ const PeoplePage = (key) => {
                 <th>Height</th>
                 <th>Mass</th>
                 <th>Birth Year</th>
-                <th>Url</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -46,7 +52,9 @@ const PeoplePage = (key) => {
                       <td>{item.height}</td>
                       <td>{item.mass}</td>
                       <td>{item.birth_year}</td>
-                      <td>{item.url}</td>
+                      <td>
+                        <button className="btn btn-success" onClick={() => goToDetailPage(item.url)}>Details</button>
+                      </td>
                     </tr>
                   );
                 })}

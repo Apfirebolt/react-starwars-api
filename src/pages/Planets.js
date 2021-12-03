@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useQuery } from "react-query";
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from "../plugins/interceptor";
 import LoaderComponent from "../components/common/Loader";
 import ErrorComponent from "../components/common/Error";
@@ -8,7 +9,7 @@ import ErrorComponent from "../components/common/Error";
 
 const PlanetsPage = () => {
   const [page, setPage] = useState(1);
-
+  const navigate = useNavigate();
   const getPlanets = async () => {
     const planets = await axiosInstance.get(`planets/?page=${page}`);
     return planets.data;
@@ -19,6 +20,12 @@ const PlanetsPage = () => {
     () => getPlanets(page),
     { keepPreviousData: true }
   );
+
+  const goToDetailPage = (url) => {
+    const planetId = url.match('(?!x)[0-9]+');
+    navigate('/planets/' + planetId);
+  };
+
   return (
     <Fragment>
       {isLoading ? (
@@ -34,7 +41,7 @@ const PlanetsPage = () => {
                 <th>Population</th>
                 <th>Terrain</th>
                 <th>Rotation Period</th>
-                <th>Url</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +54,9 @@ const PlanetsPage = () => {
                       <td>{item.population}</td>
                       <td>{item.terrain}</td>
                       <td>{item.rotation_period}</td>
-                      <td>{item.url}</td>
+                      <td>
+                        <button className="btn btn-success" onClick={() => goToDetailPage(item.url)}>Details</button>
+                      </td>
                     </tr>
                   );
                 })}
