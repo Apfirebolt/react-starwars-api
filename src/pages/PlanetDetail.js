@@ -12,18 +12,40 @@ const PlanetDetailPage = () => {
     return planetData.data;
   };
 
-  const { isLoading, error, data } = useQuery(
-    ["singlePlanet"],
-    () => getPlanetData()
+  const { isLoading, error, data } = useQuery(["singlePlanet"], () =>
+    getPlanetData()
   );
-  console.log("Data is ", data);
+
   return (
     <Fragment>
       {isLoading ? (
         <LoaderComponent />
       ) : (
         <div>
-          <h4 className="text-center text-primary my-3">PLANET DETAIL PAGE</h4>
+          <h4 className="text-center text-primary my-3">{data.name}</h4>
+          <div className="card">
+            <div className="card-body">
+              <div className="card-subtitle text-primary">
+                <p>Climate : {data.climate}</p>
+                <p>Diameter : {data.diameter}</p>
+                <p>Gravity : {data.gravity}</p>
+                <p>Orbital Period : {data.orbital_period}</p>
+                <p>
+                  Rotation Period :{" "}
+                  {data.rotation_period
+                    ? data.rotation_period
+                    : "Not available"}
+                </p>
+                <p>
+                  Surface Water :{" "}
+                  {data.surface_water ? data.surface_water : "Not available"}
+                </p>
+                <p>
+                  Terrain : {data.terrain ? data.terrain : "Not available"}{" "}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
       {error && <ErrorComponent />}

@@ -12,18 +12,45 @@ const ShipDetailPage = () => {
     return shipData.data;
   };
 
-  const { isLoading, error, data } = useQuery(
-    ["singleShip"],
-    () => getShipData()
+  const { isLoading, error, data } = useQuery(["singleShip"], () =>
+    getShipData()
   );
-  console.log("Data is ", data);
+
   return (
     <Fragment>
       {isLoading ? (
         <LoaderComponent />
       ) : (
         <div>
-          <h4 className="text-center text-primary my-3">Ship DETAIL PAGE</h4>
+          <h4 className="text-center text-primary my-3">{data.name}</h4>
+          <div className="card">
+            <div className="card-body">
+              <div className="card-subtitle text-primary">
+                <p>MGLT : {data.MGLT}</p>
+                <p>Cargo Capacity : {data.cargo_capacity}</p>
+                <p>Consumables : {data.consumables}</p>
+                <p>Cost in Credits : {data.cost_in_credits}</p>
+                <p>Length : {data.length}</p>
+                <p>Manufacturer : {data.manufacturer}</p>
+                <p>Starship Class : {data.starship_class}</p>
+                <p>No of Passengers : {data.passengers}</p>
+                <p>Model : {data.model}</p>
+                <p>Crew : {data.crew ? data.crew : "Not available"}</p>
+                <p>
+                  Hyperdrive Rating :{" "}
+                  {data.hyperdrive_rating
+                    ? data.hyperdrive_rating
+                    : "Not available"}
+                </p>
+                <p>
+                  Max Atmosphere Speed :{" "}
+                  {data.max_atmosphering_speed
+                    ? data.max_atmosphering_speed
+                    : "Not available"}{" "}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
       {error && <ErrorComponent />}
