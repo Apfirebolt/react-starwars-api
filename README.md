@@ -1,3 +1,9 @@
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
+
 # React Starwars - A Star Wars database application created in React using Star wars API ⚡️
 
 ## Project Briefing
@@ -46,9 +52,9 @@ sudo docker run -d --name evil_react -p 80:80 react-starwars
 2. Once you have the image, you can spawn a container using the second command and then check on localhost port 80 to see the running container.
 
 
+## Heroku Deployment
 
-
-
+- This app can be seamlessly deployed on Heroku using this buildpack https://elements.heroku.com/buildpacks/mars/create-react-app-buildpack
 
 ## Future Requirements
 
