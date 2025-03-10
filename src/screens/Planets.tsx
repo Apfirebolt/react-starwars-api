@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../plugins/interceptor.js";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader.jsx";
+import Loader from "../components/Loader.tsx";
+import Pagination from "../components/Pagination.tsx";
+
 
 interface Planet {
   name: string;
@@ -20,9 +22,41 @@ interface Planet {
   url: string;
 }
 
+interface Response {
+  results: Planet[];
+  count: number;
+  next: string;
+  previous: string;
+}
+
 const Planets: React.FC = () => {
   const [planets, setPlanets] = useState<Planet[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const navigate = useNavigate();
+
+  const goToDetails = (url: string) => {
+    navigate(`/planets/${url.split("/").slice(-2)[0]}`);
+  };
+
+  const goToNextPageUtil = async () => {
+    setLoading(true);
+    const newPlanets = await axiosInstance.get<Response>(`planets?page=${currentPage + 1}`);
+    setPlanets(newPlanets.data.results);
+    setCurrentPage(currentPage + 1);
+    setLoading(false);
+  };
+
+  const goToPreviousPageUtil = async () => {
+    if (currentPage > 1) {
+      setLoading(true);
+      const newPlanets = await axiosInstance.get<Response>(`planets?page=${currentPage - 1}`);
+      setPlanets(newPlanets.data.results);
+      setCurrentPage(currentPage - 1);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     axiosInstance
@@ -42,10 +76,10 @@ const Planets: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-primary-300 flex flex-col items-center justify-center">
-      <h1 className="text-2xl font-bold text-center mb-4">Planets</h1>
+    <div className="bg-primary-300 pt-4">
+      <h1 className="text-3xl font-bold text-center mb-4">PLANETS</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {planets.map((planet) => (
+        {planets?.map((planet) => (
           <div key={planet.url} className="bg-white p-4 rounded shadow-md">
             <h2 className="text-xl font-bold mb-2">{planet.name}</h2>
             <p>
@@ -60,9 +94,20 @@ const Planets: React.FC = () => {
             <p>
               <strong>Diameter:</strong> {planet.diameter}
             </p>
+            <button
+              className="bg-primary-500 text-black px-4 py-2 rounded mt-2"
+              onClick={() => goToDetails(planet.url)}
+            >
+              View Details
+            </button>
           </div>
         ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        goToNextPage={goToNextPageUtil}
+        goToPreviousPage={goToPreviousPageUtil}
+      />
     </div>
   );
 };

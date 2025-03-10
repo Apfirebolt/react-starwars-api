@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../plugins/interceptor.js";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader.jsx";
+import Loader from "../components/Loader.tsx";
+import Pagination from "../components/Pagination.tsx";
 
 interface Starship {
   name: string;
@@ -25,9 +26,7 @@ interface Starship {
 }
 
 interface Response {
-  data: {
-    results: Starship[];
-  };
+  results: Starship[];
   count: number;
   next: string;
   previous: string;
@@ -36,15 +35,44 @@ interface Response {
 const Starships: React.FC = () => {
   const [starships, setStarships] = useState<Starship[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const navigate = useNavigate();
+
+  const goToDetails = (url: string) => {
+    navigate(`/starships/${url.split("/").slice(-2)[0]}`);
+  };
+
+  const goToNextPageUtil = async () => {
+    setLoading(true);
+    const newStarships = await axiosInstance.get<Response>(
+      `starships?page=${currentPage + 1}`
+    );
+    setStarships(newStarships.data.results);
+    setCurrentPage(currentPage + 1);
+    setLoading(false);
+  };
+
+  const goToPreviousPageUtil = async () => {
+    if (currentPage > 1) {
+      setLoading(true);
+      const newStarships = await axiosInstance.get<Response>(
+        `starships?page=${currentPage - 1}`
+      );
+      setStarships(newStarships.data.results);
+      setCurrentPage(currentPage - 1);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     axiosInstance
       .get("starships")
-      .then((response: Response) => {
+      .then((response) => {
         setStarships(response.data.results);
         setLoading(false);
       })
-      .catch((error: any) => {
+      .catch((error) => {
         console.error(error);
         setLoading(false);
       });
@@ -55,10 +83,10 @@ const Starships: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-primary-300 flex flex-col items-center justify-center">
-      <h1 className="text-2xl font-bold text-center mb-4">Starships</h1>
+    <div className="bg-primary-300 pt-4">
+      <h1 className="text-3xl font-bold text-center mb-4">STARSHIPS</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {starships.map((starship) => (
+        {starships?.map((starship) => (
           <div key={starship.url} className="bg-white p-4 rounded shadow-md">
             <h2 className="text-xl font-bold mb-2">{starship.name}</h2>
             <p>
@@ -73,23 +101,20 @@ const Starships: React.FC = () => {
             <p>
               <strong>Length:</strong> {starship.length}
             </p>
-            <p>
-                <strong>Max Atmosphering Speed:</strong>{" "}
-                {starship.max_atmosphering_speed}
-            </p>
-            <p>
-                <strong>Crew:</strong> {starship.crew}
-            </p>
-            <p>
-                <strong>Url:</strong>
-                <a href={starship.url}>{starship.url}</a>
-            </p>
-            <p>
-                <strong>Appeared in Movies:</strong> {starship.films.length > 0 ? starship.films.join(", ") : "None"}
-            </p>
+            <button
+              className="bg-primary-500 text-black px-4 py-2 rounded mt-2"
+              onClick={() => goToDetails(starship.url)}
+            >
+              View Details
+            </button>
           </div>
         ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        goToNextPage={goToNextPageUtil}
+        goToPreviousPage={goToPreviousPageUtil}
+      />
     </div>
   );
 };

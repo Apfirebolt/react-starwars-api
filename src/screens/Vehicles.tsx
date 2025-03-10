@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../plugins/interceptor.js";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader.jsx";
+import Loader from "../components/Loader.tsx";
+import Pagination from "../components/Pagination.tsx";
 
 interface Vehicle {
   name: string;
@@ -23,9 +24,7 @@ interface Vehicle {
 }
 
 interface Response {
-  data: {
-    results: Vehicle[];
-  };
+  results: Vehicle[];
   count: number;
   next: string;
   previous: string;
@@ -34,15 +33,44 @@ interface Response {
 const Vehicles: React.FC = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const navigate = useNavigate();
+
+  const goToDetails = (url: string) => {
+    navigate(`/vehicles/${url.split("/").slice(-2)[0]}`);
+  };
+
+  const goToNextPageUtil = async () => {
+    setLoading(true);
+    const newVehicles = await axiosInstance.get<Response>(
+      `vehicles?page=${currentPage + 1}`
+    );
+    setVehicles(newVehicles.data.results);
+    setCurrentPage(currentPage + 1);
+    setLoading(false);
+  };
+
+  const goToPreviousPageUtil = async () => {
+    if (currentPage > 1) {
+      setLoading(true);
+      const newVehicles = await axiosInstance.get<Response>(
+        `vehicles?page=${currentPage - 1}`
+      );
+      setVehicles(newVehicles.data.results);
+      setCurrentPage(currentPage - 1);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     axiosInstance
       .get("vehicles")
-      .then((response: Response) => {
+      .then((response) => {
         setVehicles(response.data.results);
         setLoading(false);
       })
-      .catch((error: any) => {
+      .catch((error) => {
         console.error(error);
         setLoading(false);
       });
@@ -53,10 +81,10 @@ const Vehicles: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-primary-300 flex flex-col items-center justify-center">
-      <h1 className="text-2xl font-bold text-center mb-4">Vehicles</h1>
+    <div className="bg-primary-300 pt-4">
+      <h1 className="text-3xl font-bold text-center mb-4">VEHICLES</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {vehicles.map((vehicle) => (
+        {vehicles?.map((vehicle) => (
           <div key={vehicle.url} className="bg-white p-4 rounded shadow-md">
             <h2 className="text-xl font-bold mb-2">{vehicle.name}</h2>
             <p>
@@ -71,24 +99,20 @@ const Vehicles: React.FC = () => {
             <p>
               <strong>Length:</strong> {vehicle.length}
             </p>
-            <p>
-              <strong>Max Atmosphering Speed:</strong>{" "}
-              {vehicle.max_atmosphering_speed}
-            </p>
-            <p>
-              <strong>Crew:</strong> {vehicle.crew}
-            </p>
-            <p>
-              <strong>Url:</strong>
-              <a href={vehicle.url}>{vehicle.url}</a>
-            </p>
-            <p>
-              <strong>Appeared in Movies:</strong>{" "}
-              {vehicle.films.length > 0 ? vehicle.films.join(", ") : "None"}
-            </p>
+            <button
+              className="bg-primary-500 text-black px-4 py-2 rounded mt-2"
+              onClick={() => goToDetails(vehicle.url)}
+            >
+              View Details
+            </button>
           </div>
         ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        goToNextPage={goToNextPageUtil}
+        goToPreviousPage={goToPreviousPageUtil}
+      />
     </div>
   );
 };

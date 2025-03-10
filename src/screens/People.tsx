@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import Loader from "../components/Loader.tsx";
 import axiosInstance from "../plugins/interceptor.js";
@@ -34,15 +34,30 @@ const retrievePeople = async (): Promise<PeopleResponse> => {
   return response.data;
 };
 
+const goToNextPage = async (url: string): Promise<PeopleResponse> => {
+  const response = await axiosInstance.get<PeopleResponse>(url);
+  console.log(response.data);
+  return response.data;
+};
+
+const goToPreviousPage = async (url: string): Promise<PeopleResponse> => {
+  const response = await axiosInstance.get<PeopleResponse>(url);
+  return response.data;
+};
+
 const People: React.FC = () => {
   const {
     data: people,
     error,
     isLoading,
-  } = useQuery<PeopleResponse, Error>("peopleData", retrievePeople);
+  } = useQuery<PeopleResponse, Error>("peopleData", retrievePeople, {
+    keepPreviousData: true,
+  });
 
   if (isLoading) return <Loader />;
   if (error) return <div>An error occurred: {error.message}</div>;
+
+  console.log('People ', people)
 
   return (
     <div className="bg-primary-300">
