@@ -11,6 +11,7 @@ import PlanetDetail from "./screens/PlanetDetail.tsx";
 import Starships from "./screens/Starships.tsx";
 import StarshipDetail from "./screens/StarshipDetail.tsx";
 import Vehicles from "./screens/Vehicles.tsx";
+import VehicleDetail from "./screens/VehicleDetail.tsx";
 import Films from "./screens/Films.tsx";
 import { QueryClient, QueryClientProvider } from 'react-query';
 
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/starships" element={<Starships />} />
             <Route path="/starships/:id" element={<StarshipDetail />} />
             <Route path="/vehicles" element={<Vehicles />} />
+            <Route path="/vehicles/:id" element={<VehicleDetail />} />
             <Route path="/films" element={<Films />} />
           </Routes>
         <Footer />

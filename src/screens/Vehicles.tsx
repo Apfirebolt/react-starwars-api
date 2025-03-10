@@ -65,7 +65,7 @@ const Vehicles: React.FC = () => {
 
   useEffect(() => {
     axiosInstance
-      .get("vehicles")
+      .get<Response>("vehicles")
       .then((response) => {
         setVehicles(response.data.results);
         setLoading(false);

@@ -3,7 +3,7 @@ import axiosInstance from "../plugins/interceptor.js";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader.tsx";
 
-interface Starship {
+interface Vehicle {
   name: string;
   model: string;
   manufacturer: string;
@@ -14,9 +14,7 @@ interface Starship {
   passengers: string;
   cargo_capacity: string;
   consumables: string;
-  hyperdrive_rating: string;
-  MGLT: string;
-  starship_class: string;
+  vehicle_class: string;
   pilots: string[];
   films: string[];
   created: string;
@@ -24,16 +22,16 @@ interface Starship {
   url: string;
 }
 
-const StarshipDetail: React.FC = () => {
+const VehicleDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [starship, setStarship] = useState<Starship | null>(null);
+  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     axiosInstance
-      .get<Starship>(`starships/${id}`)
+      .get<Vehicle>(`vehicles/${id}`)
       .then((response) => {
-        setStarship(response.data);
+        setVehicle(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -46,54 +44,48 @@ const StarshipDetail: React.FC = () => {
     return <Loader />;
   }
 
-  if (!starship) {
-    return <div>Starship not found</div>;
+  if (!vehicle) {
+    return <div>Vehicle not found</div>;
   }
 
   return (
     <div className="bg-primary-300 pt-4">
-      <h1 className="text-3xl font-bold text-center mb-4">{starship.name}</h1>
+      <h1 className="text-3xl font-bold text-center mb-4">{vehicle.name}</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <p>
-          <strong>Model:</strong> {starship.model}
+          <strong>Model:</strong> {vehicle.model}
         </p>
         <p>
-          <strong>Manufacturer:</strong> {starship.manufacturer}
+          <strong>Manufacturer:</strong> {vehicle.manufacturer}
         </p>
         <p>
-          <strong>Cost:</strong> {starship.cost_in_credits} credits
+          <strong>Cost:</strong> {vehicle.cost_in_credits} credits
         </p>
         <p>
-          <strong>Length:</strong> {starship.length}
+          <strong>Length:</strong> {vehicle.length}
         </p>
         <p>
           <strong>Max Atmosphering Speed:</strong>{" "}
-          {starship.max_atmosphering_speed}
+          {vehicle.max_atmosphering_speed}
         </p>
         <p>
-          <strong>Crew:</strong> {starship.crew}
+          <strong>Crew:</strong> {vehicle.crew}
         </p>
         <p>
-          <strong>Passengers:</strong> {starship.passengers}
+          <strong>Passengers:</strong> {vehicle.passengers}
         </p>
         <p>
-          <strong>Cargo Capacity:</strong> {starship.cargo_capacity}
+          <strong>Cargo Capacity:</strong> {vehicle.cargo_capacity}
         </p>
         <p>
-          <strong>Consumables:</strong> {starship.consumables}
+          <strong>Consumables:</strong> {vehicle.consumables}
         </p>
         <p>
-          <strong>Hyperdrive Rating:</strong> {starship.hyperdrive_rating}
-        </p>
-        <p>
-          <strong>MGLT:</strong> {starship.MGLT}
-        </p>
-        <p>
-          <strong>Starship Class:</strong> {starship.starship_class}
+          <strong>Vehicle Class:</strong> {vehicle.vehicle_class}
         </p>
       </div>
     </div>
   );
 };
 
-export default StarshipDetail;
+export default VehicleDetail;
