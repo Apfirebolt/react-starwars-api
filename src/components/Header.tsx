@@ -8,6 +8,7 @@ const HeaderComponent: React.FC = () => {
     { name: "Planets", path: "/planets" },
     { name: "Starships", path: "/starships" },
     { name: "Vehicles", path: "/vehicles" },
+    { name: "Films", path: "/films" },
   ]);
   return (
     <nav className="bg-primary-100 border-gray-200 px-2 sm:px-4 py-4 dark:bg-gray-900">
