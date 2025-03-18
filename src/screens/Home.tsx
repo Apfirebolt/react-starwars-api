@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Loader from '../components/Loader.tsx';
+import React from "react";
 
 const Home: React.FC = () => {
-    
-
-    useEffect(() => {
-        
-    }, []);
-
-    return (
-        <div className="min-h-screen bg-primary-300 flex items-center justify-center">
-            <h1 className="text-2xl font-bold text-center mb-4">Home</h1>
-            <p>
-                Welcome to the homepage
-            </p>
-        </div>
-    );
+  return (
+    <div className="bg-primary-300 pt-3">
+      <h1 className="text-3xl font-bold text-center mb-4">HOME</h1>
+      <p className="text-center my-3">
+        Welcome to the Star Wars API! Click on the links above to explore the
+        data.
+      </p>
+    </div>
+  );
 };
 
 export default Home;

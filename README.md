@@ -10,6 +10,8 @@
 
 This is an web application created using React which integrates with open API for Star Wars to display information from Star Wars franchise in various categories. 
 
+The project is available for showcase at https://react-starwars-api-jet.vercel.app
+
 For more information please visit the API website and the docs [here](https://swapi.dev/)
 
 Made with ❤️ by **[@apfirebolt](https://github.com/Apfirebolt/)**

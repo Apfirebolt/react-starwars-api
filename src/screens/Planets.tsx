@@ -95,7 +95,7 @@ const Planets: React.FC = () => {
               <strong>Diameter:</strong> {planet.diameter}
             </p>
             <button
-              className="bg-primary-500 text-black px-4 py-2 rounded mt-2"
+              className="bg-primary-100 text-primary-200 px-4 py-2 rounded mt-2"
               onClick={() => goToDetails(planet.url)}
             >
               View Details

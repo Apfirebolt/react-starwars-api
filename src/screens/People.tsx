@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
 import Loader from "../components/Loader.tsx";
 import axiosInstance from "../plugins/interceptor.js";
 
@@ -34,17 +33,6 @@ const retrievePeople = async (): Promise<PeopleResponse> => {
   return response.data;
 };
 
-const goToNextPage = async (url: string): Promise<PeopleResponse> => {
-  const response = await axiosInstance.get<PeopleResponse>(url);
-  console.log(response.data);
-  return response.data;
-};
-
-const goToPreviousPage = async (url: string): Promise<PeopleResponse> => {
-  const response = await axiosInstance.get<PeopleResponse>(url);
-  return response.data;
-};
-
 const People: React.FC = () => {
   const {
     data: people,
@@ -57,11 +45,9 @@ const People: React.FC = () => {
   if (isLoading) return <Loader />;
   if (error) return <div>An error occurred: {error.message}</div>;
 
-  console.log('People ', people)
-
   return (
-    <div className="bg-primary-300">
-      <h1 className="text-2xl font-bold text-center mb-4">People</h1>
+    <div className="bg-primary-300 pt-4">
+      <h1 className="text-3xl font-bold text-center mb-4">PEOPLE</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {people?.results.map((person) => (
           <div key={person.url} className="bg-white p-4 rounded shadow-md">

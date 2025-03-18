@@ -100,7 +100,7 @@ const Vehicles: React.FC = () => {
               <strong>Length:</strong> {vehicle.length}
             </p>
             <button
-              className="bg-primary-500 text-black px-4 py-2 rounded mt-2"
+              className="bg-primary-100 text-primary-200 px-4 py-2 rounded mt-2"
               onClick={() => goToDetails(vehicle.url)}
             >
               View Details
